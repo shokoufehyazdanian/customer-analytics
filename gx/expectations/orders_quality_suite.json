@@ -1,0 +1,9 @@
+{
+  "expectations": [],
+  "id": "ea965db0-677a-41ac-b2a2-ce5ae10febb8",
+  "meta": {
+    "great_expectations_version": "1.18.2"
+  },
+  "name": "orders_quality_suite",
+  "notes": null
+}

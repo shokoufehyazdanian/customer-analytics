@@ -1,0 +1,38 @@
+{
+  "expectations": [
+    {
+      "id": "5af22903-bc7b-4529-9e64-dc1c2d29c731",
+      "kwargs": {
+        "max_value": 200000,
+        "min_value": 1000
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "68b6bab0-2dcc-4d22-b04b-0197223a8e15",
+      "kwargs": {
+        "column": "order_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "abd15dad-017f-447b-bf88-1f8c346d8e19",
+      "kwargs": {
+        "column": "order_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    }
+  ],
+  "id": "e30c0a40-f2ea-4f53-9ec6-b34acfc2f238",
+  "meta": {
+    "great_expectations_version": "1.18.2"
+  },
+  "name": "default",
+  "notes": null
+}
