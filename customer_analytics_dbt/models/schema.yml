@@ -1,0 +1,59 @@
+version: 2
+
+models:
+
+  - name: stg_orders
+    description: "Cleaned orders staging model"
+
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        tests:
+          - not_null
+
+
+  - name: stg_customers
+    description: "Cleaned customers staging model"
+
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+
+  - name: stg_products
+    description: "Cleaned products staging model"
+
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+
+
+  - name: fact_orders
+
+
+    description: "Orders fact table"
+
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+
+
+
+  - name: mart_sales_summary
+    description: Sales KPIs
+
+  - name: mart_customer_rfm
+
+  - name: mart_product_performance
+  
+  - name: mart_daily_sales
