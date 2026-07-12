@@ -1,6 +1,25 @@
 version: 2
+sources:
+  - name: ecommerce
+    schema: public
+    tables:
+      - name: olist_order_reviews_dataset
 
+      
 models:
+    
+    
+  - name: mart_product_performance
+
+    columns:
+
+      - name: product_id
+        tests:
+          - not_null
+
+      - name: total_revenue
+        tests:
+          - not_null
 
   - name: stg_orders
     description: "Cleaned orders staging model"
@@ -47,13 +66,14 @@ models:
           - unique
           - not_null
 
-
+          
+  - name: stg_reviews
 
   - name: mart_sales_summary
     description: Sales KPIs
 
   - name: mart_customer_rfm
 
-  - name: mart_product_performance
+  
   
   - name: mart_daily_sales
