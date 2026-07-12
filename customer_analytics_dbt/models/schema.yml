@@ -77,3 +77,18 @@ models:
   
   
   - name: mart_daily_sales
+    description: "Daily sales summary including orders and revenue"
+
+    columns:
+      - name: sales_date
+        description: "Date of sales"
+
+      - name: orders
+        description: "Number of orders per day"
+        tests:
+          - not_null
+
+      - name: revenue
+        description: "Total revenue per day"
+        tests:
+         - not_null
