@@ -1,23 +1,29 @@
 from pathlib import Path
 import joblib
 
-MODEL_PATH = Path("models/churn_model.pkl")
 
-model = joblib.load(MODEL_PATH)
+MODEL_PATH = Path(__file__).parent.parent / "models" / "churn_model.pkl"
+
+model = None
+
+
+def get_model():
+
+    global model
+
+    if model is None:
+        model = joblib.load(MODEL_PATH)
+
+    return model
+
 
 
 def predict_churn(features):
 
-    prediction = model.predict(
-        [features]
-    )
+    model = get_model()
 
-    probability = model.predict_proba(
-        [features]
-    )[0][1]
-
+    prediction = model.predict([features])
 
     return {
-        "prediction": int(prediction[0]),
-        "churn_probability": float(probability)
+        "prediction": int(prediction[0])
     }
