@@ -1,10 +1,20 @@
 select
 
-    customer_id,
+    o.order_id,
 
-    customer_city,
+    o.customer_id,
 
-    customer_state
+    c.customer_unique_id,
+
+    o.order_status,
+
+    o.order_purchase_timestamp::timestamp as purchase_date,
+
+    o.order_delivered_customer_date::timestamp as delivery_date
 
 
-from public.olist_customers_dataset
+from public.olist_orders_dataset o
+
+left join public.olist_customers_dataset c
+
+on o.customer_id = c.customer_id

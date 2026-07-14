@@ -4,7 +4,7 @@ customer_analytics_dbt:
   outputs:
     dev:
       type: postgres
-      host: postgres
+      host: localhost
       user: postgres
       password: postgres
       port: 5432

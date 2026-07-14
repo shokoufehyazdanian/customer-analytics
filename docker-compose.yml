@@ -50,6 +50,18 @@ services:
     command:
       airflow standalone
 
+api:
 
+  build:
+    context: ./api
+
+  container_name:
+    churn_api
+
+  ports:
+    - "8000:8000"
+
+  volumes:
+    - ./ml:/app/ml
 volumes:
   postgres_data:

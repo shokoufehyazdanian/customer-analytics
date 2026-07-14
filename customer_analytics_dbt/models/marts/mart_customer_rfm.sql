@@ -1,65 +1,110 @@
+{% set snapshot_date = "2018-06-01" %}
+
 with customer_orders as (
 
     select
 
-        o.customer_id,
+        customer_unique_id,
+        order_id,
+        purchase_date
 
-        o.order_id,
+    from {{ ref('stg_orders') }}
 
-        o.purchase_date
-
-    from {{ ref('stg_orders') }} o
-
-    where o.order_status = 'delivered'
+    where order_status = 'delivered'
+      and purchase_date < '{{ snapshot_date }}'
 
 ),
+
 
 customer_value as (
 
     select
 
-        oi.order_id,
+        order_id,
 
-        sum(oi.price) as order_value
+        sum(price) as order_value
 
-    from {{ ref('stg_order_items') }} oi
+    from {{ ref('stg_order_items') }}
 
-    group by 1
+    group by order_id
+
+),
+
+
+customer_features as (
+
+    select
+
+        co.customer_unique_id,
+
+        count(distinct co.order_id) as frequency,
+
+        sum(cv.order_value) as monetary,
+
+        max(co.purchase_date) as last_purchase_date,
+
+        min(co.purchase_date) as first_purchase_date
+
+
+    from customer_orders co
+
+
+    left join customer_value cv
+
+    using(order_id)
+
+
+    group by co.customer_unique_id
 
 )
 
 
 select
 
-    co.customer_id,
+    cf.customer_unique_id,
+
+    cf.frequency,
+
+    cf.monetary,
 
 
-    -- Frequency
-
-    count(distinct co.order_id)
-        as frequency,
-
-
-    -- Monetary
-
-    sum(cv.order_value)
-        as monetary,
+    (
+        '{{ snapshot_date }}'::date
+        -
+        cf.last_purchase_date::date
+    ) as recency,
 
 
-    -- Last purchase
-
-    max(co.purchase_date)
-        as last_purchase_date
-
-
-from customer_orders co
-
-
-left join customer_value cv
-
-using(order_id)
+    round(
+        (
+            cf.monetary::numeric
+            /
+            nullif(cf.frequency,0)
+        ),
+        2
+    ) as avg_order_value,
 
 
-group by
+    (
+        cf.last_purchase_date::date
+        -
+        cf.first_purchase_date::date
+    ) as customer_lifetime_days,
 
-    co.customer_id
+
+    case
+
+        when (
+            '{{ snapshot_date }}'::date
+            -
+            cf.last_purchase_date::date
+        ) > 120
+
+        then 1
+
+        else 0
+
+    end as churn
+
+
+from customer_features cf
