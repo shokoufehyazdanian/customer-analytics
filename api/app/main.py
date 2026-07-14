@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from api.app.schemas import CustomerFeatures
-from api.app.model import predict_churn
+from app.schemas import CustomerFeatures
+from app.model import predict_churn
 
 
 

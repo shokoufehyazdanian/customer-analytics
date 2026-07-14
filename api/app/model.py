@@ -1,8 +1,7 @@
+from pathlib import Path
 import joblib
 
-
-MODEL_PATH = "ml/models/churn_model.pkl"
-
+MODEL_PATH = Path("models/churn_model.pkl")
 
 model = joblib.load(MODEL_PATH)
 
