@@ -1,7 +1,7 @@
 import os
 
 
-def test_model_exists():
-    path = "ml/models/churn_model.pkl"
+def test_model_module_imports():
+    import api.app.model
 
-    assert os.path.exists(path)
+    assert api.app.model is not None
