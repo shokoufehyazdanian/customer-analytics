@@ -128,9 +128,9 @@ Customer churn prediction model is trained.
 ![Dashboard](dashboard/screenshots/overview.png)
 
 
-### Customer Segmentation
+### Products 
 
-![Customers](dashboard/screenshots/customers.png)
+![Customers](dashboard/screenshots/prodocts.png)
 
 ## Machine Learning Model
 
