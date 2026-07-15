@@ -125,7 +125,7 @@ Customer churn prediction model is trained.
 
 ### Executive Overview
 
-![Dashboard](dashboard/screenshots/overview.png)
+![Dashboard](dashboard/screenshots/dashboard.png)
 
 
 ### Products 
