@@ -130,7 +130,7 @@ Customer churn prediction model is trained.
 
 ### Products 
 
-![Customers](dashboard/screenshots/prodocts.png)
+![Products](dashboard/screenshots/prodocts.png)
 
 ## Machine Learning Model
 
