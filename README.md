@@ -69,6 +69,17 @@ flowchart TD
 
 customer-analytics-platform/
 
+├── data/
+│     └── raw/         
+│         └── dataset files 
+
+        
+├── data_loader/ 
+│    ├── Dockerfile 
+│    ├── requirements.txt 
+│    └── load_data.py
+
+
 ├── src/
 │   └── data ingestion
 
@@ -98,8 +109,22 @@ customer-analytics-platform/
 
 1. Data ingestion
 
-Raw datasets are loaded into PostgreSQL.
+Raw datasets are loaded into PostgreSQL using a dedicated Docker data loader service.
 
+The loader reads CSV files from:
+
+data/raw/
+
+Expected files:
+
+data/raw/
+
+├── olist_orders_dataset.csv
+├── olist_order_items_dataset.csv
+├── olist_products_dataset.csv
+└── olist_order_reviews_dataset.csv
+
+The data_loader container automatically imports these files into PostgreSQL.
 
 2. Data validation
 
@@ -168,6 +193,7 @@ Random Forest
 ROC-AUC:
 0.67
 
+
 ## How To Run
 
 
@@ -175,6 +201,15 @@ Clone repository:
 
 git clone [REPOSITORY](https://github.com/shokoufehyazdanian/Customer-Analytics-Platform)
 
+Dataset Setup:
+
+Raw datasets are not included in this repository because of their size.
+
+Download the dataset and place the CSV files inside:
+
+data/raw/
+
+After placing the files, Docker will automatically load them into PostgreSQL.
 
 Create environment:
 
