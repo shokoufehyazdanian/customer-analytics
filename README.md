@@ -192,11 +192,26 @@ ROC-AUC:
 ## How To Run
 
 
-Clone repository:
+### Prerequisites
 
-git clone [REPOSITORY](https://github.com/shokoufehyazdanian/Customer-Analytics-Platform)
+Make sure you have installed:
 
-Dataset Setup:
+* Docker Desktop
+* Docker Compose
+
+No local Python environment is required because all services run inside Docker containers.
+
+---
+
+## 1. Clone Repository
+
+```bash
+git clone github.com/shokoufehyazdanian/Customer-Analytics-Platform
+```
+
+---
+
+## 2. Dataset Setup
 
 Raw datasets are not included in this repository because of their size.
 
@@ -204,37 +219,163 @@ Download the Brazilian E-Commerce Public Dataset by Olist from Kaggle:
 
 https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
-After downloading, extract the CSV files into:
+Extract the CSV files into:
 
+```
 data/raw/
+```
 
-After placing the files, Docker will automatically load them into PostgreSQL.
+Expected structure:
 
-Create environment:
+```
+data/
+└── raw/
+    ├── olist_orders_dataset.csv
+    ├── olist_order_items_dataset.csv
+    ├── olist_products_dataset.csv
+    ├── olist_order_reviews_dataset.csv
+    ├── olist_customers_dataset.csv
+    ├── olist_sellers_dataset.csv
+    ├── olist_geolocation_dataset.csv
+    ├── olist_order_payments_dataset.csv
+    └── product_category_name_translation.csv
+```
 
-python -m venv venv
+---
 
+## 3. Start Docker Services
 
-Install dependencies:
+Build and start all services:
 
-pip install -r requirements.txt
+```bash
+docker compose up --build -d
+```
 
+This starts:
 
-Start services:
+| Service     | Description                              |
+| ----------- | ---------------------------------------- |
+| PostgreSQL  | Data warehouse database                  |
+| Data Loader | Loads raw CSV files into PostgreSQL      |
+| Airflow     | Workflow orchestration and dbt execution |
+| FastAPI     | Churn prediction API                     |
 
-docker compose up -d
+---
 
+## 4. Load Raw Data
 
-Run dbt:
+The data loader runs automatically when Docker starts.
 
-cd customer_analytics_dbt
+Check loading status:
 
+```bash
+docker logs customer_data_loader
+```
+
+Successful output:
+
+```
+Loading olist_orders_dataset.csv...
+Loaded olist_orders_dataset: xxxx rows
+
+Loading olist_products_dataset.csv...
+Loaded olist_products_dataset: xxxx rows
+
+Finished loading data
+```
+
+---
+
+## 5. Run dbt Transformations
+
+Open the Airflow container:
+
+```bash
+docker exec -it customer_airflow bash
+```
+
+Go to dbt project:
+
+```bash
+cd /opt/customer_analytics_dbt
+```
+
+Run transformations:
+
+```bash
 dbt run
+```
 
+Run data quality tests:
 
-Start API:
+```bash
+dbt test
+```
 
-uvicorn api.app.main:app --reload
+---
+
+## 6. Access Applications
+
+### Airflow
+
+Open:
+
+```
+http://localhost:8080
+```
+
+### FastAPI
+
+API:
+
+```
+http://localhost:8000
+```
+
+Swagger documentation:
+
+```
+http://localhost:8000/docs
+```
+
+---
+
+## 7. Stop Services
+
+Stop all containers:
+
+```bash
+docker compose down
+```
+
+---
+
+## Project Execution Flow
+
+```
+CSV Files
+    |
+    v
+Data Loader Container
+    |
+    v
+PostgreSQL
+    |
+    v
+dbt Transformations
+    |
+    v
+Analytics Models
+    |
+    v
+Machine Learning Model
+    |
+    v
+FastAPI Prediction API
+```
+
+All components run inside Docker containers to provide a reproducible environment.
+
 
 ## Future Improvements
 
