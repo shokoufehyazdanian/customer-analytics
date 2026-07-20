@@ -69,41 +69,36 @@ flowchart TD
 
 customer-analytics-platform/
 
-├── data/
-│     └── raw/         
-│         └── dataset files 
-
-        
-├── data_loader/ 
-│    ├── Dockerfile/
-│    ├── requirements.txt/
-│    └── load_data.py/
-
-
-├── src/
+```text
+.
+├── data
+│   └── raw
+│       └── dataset files
+│
+├── data_loader
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── load_data.py
+│
+├── src
 │   └── data ingestion
-
-
-├── customer_analytics_dbt/
+│
+├── customer_analytics_dbt
 │   └── transformation models
-
-
-├── ml/
+│
+├── ml
 │   ├── feature engineering
 │   ├── training
 │   └── models
-
-
-├── api/
+│
+├── api
 │   └── FastAPI service
-
-
-├── dashboard/
+│
+├── dashboard
 │   └── Power BI dashboard
-
-
+│
 └── docker-compose.yml
-
+```
 ## Data Pipeline
 
 
