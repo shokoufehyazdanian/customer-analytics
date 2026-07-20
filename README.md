@@ -21,17 +21,21 @@ to answer these questions.
 
 
 ## Architecture
-
-```mermaid
 flowchart TD
-    A[Data Source] --> B[Python ETL]
-    B --> C[PostgreSQL]
-    C --> D[Great Expectations]
-    D --> E[dbt Warehouse]
-    E --> F[Power BI Dashboard]
-    F --> G[ML Pipeline]
-    G --> H[FastAPI]
-```
+
+A[Data Source<br/>Olist CSV] --> B[Python ETL<br/>load_raw_data.py]
+
+B --> C[PostgreSQL<br/>Raw Tables]
+
+C --> D[Great Expectations<br/>Data Validation]
+
+C --> E[dbt Warehouse<br/>Staging + Marts]
+
+E --> F[Power BI Dashboard]
+
+E --> G[ML Pipeline<br/>Churn Prediction]
+
+G --> H[FastAPI<br/>Prediction API]
 
 ## Tech Stack
 
