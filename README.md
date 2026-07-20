@@ -449,5 +449,3 @@ All components run inside Docker containers to provide a reproducible environmen
 - Real-time streaming pipeline
 - Advanced ML monitoring
 - Automated retraining
-
-alan khube>?
