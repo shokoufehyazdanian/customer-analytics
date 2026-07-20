@@ -22,56 +22,44 @@ to answer these questions.
 
 ## Architecture
 ```mermaid
-flowchart TD
-
-    A[Data Source<br/>Olist E-commerce CSV Files] --> B[Python ETL<br/>load_raw_data.py]
-
-    B --> C[PostgreSQL<br/>Raw Data Layer]
-
-    C --> D[Great Expectations<br/>Data Quality Validation]
-
-    C --> E[dbt Warehouse<br/>Staging Models + Analytics Marts]
-
-    E --> F[Power BI Dashboard<br/>Business Analytics]
-
-    E --> G[ML Pipeline<br/>Customer Churn Prediction]
-
-    G --> H[FastAPI<br/>ML Prediction API]
-```
-
-```mermaid
-
 flowchart LR
 
-    A[CSV Raw Data<br/>Olist Dataset] --> B[Python Data Loader<br/>Docker Container]
+    A[Olist CSV Dataset<br/>data/raw] --> B[Docker Data Loader<br/>Python + Pandas]
 
-    B --> C[(PostgreSQL<br/>Raw Tables)]
+    B --> C[(PostgreSQL<br/>Raw Layer)]
 
     C --> D[Great Expectations<br/>Data Validation]
 
-    C --> E[dbt Transformations<br/>Staging Models + Marts]
+    C --> E[dbt Transformation Layer]
 
-    E --> F[Analytics Warehouse<br/>Customer KPIs]
+    E --> E1[Staging Models]
+    E --> E2[Analytics Marts]
 
-    F --> G[Power BI Dashboard<br/>Business Insights]
+    E2 --> F[Power BI Dashboard]
 
-    E --> H[Feature Engineering<br/>Customer Features]
+    E2 --> G[Feature Engineering]
 
-    H --> I[ML Pipeline<br/>Scikit-learn / XGBoost]
+    G --> H[ML Pipeline<br/>Scikit-learn/XGBoost]
 
-    I --> J[MLflow<br/>Experiment Tracking]
+    H --> I[MLflow<br/>Experiment Tracking]
 
-    I --> K[FastAPI<br/>Churn Prediction API]
+    H --> J[FastAPI<br/>Churn Prediction API]
 
-    L[Airflow<br/>Workflow Orchestration] --> B
-    L --> D
-    L --> E
+    K[Airflow Scheduler] --> E
+    K --> H
 
-    M[Docker Compose] --> B
-    M --> C
-    M --> L
-    M --> K
+این بهتر نشان می‌دهد که Airflow کجاست.
 ```
+
+## Docker Services
+
+| Service | Purpose |
+|---|---|
+| postgres | PostgreSQL database storing raw and transformed data |
+| data_loader | Python ETL container loading CSV files |
+| airflow | Workflow orchestration and dbt execution |
+| churn_api | FastAPI service for churn prediction |
+
 ## Tech Stack
 
 ### Data Engineering
@@ -245,7 +233,7 @@ No local Python environment is required because all services run inside Docker c
 ## 1. Clone Repository
 
 ```bash
-git clone github.com/shokoufehyazdanian/Customer-Analytics-Platform
+git clone github.com/shokoufehyazdanian/Customer-Analytics-Platform.git
 ```
 
 ---
@@ -303,7 +291,8 @@ This starts:
 
 ## 4. Load Raw Data
 
-The data loader runs automatically when Docker starts.
+The data_loader Docker service executes load_raw_data.py
+and loads CSV files into PostgreSQL automatically during startup.
 
 Check loading status:
 
@@ -327,8 +316,9 @@ Finished loading data
 
 ## 5. Run dbt Transformations
 
-Open the Airflow container:
+Note: dbt is installed inside the Airflow Docker container.
 
+Open the Airflow container:
 ```bash
 docker exec -it customer_airflow bash
 ```
@@ -378,6 +368,24 @@ http://localhost:8000/docs
 ```
 
 ---
+## Demo
+
+### API Example
+
+Endpoint:
+
+POST /predict
+
+
+Example request:
+
+```json
+{
+  "recency": 30,
+  "frequency": 5,
+  "monetary": 450
+}
+```
 
 ## 7. Stop Services
 
