@@ -21,22 +21,23 @@ to answer these questions.
 
 
 ## Architecture
+```mermaid
 flowchart TD
 
-A[Data Source<br/>Olist CSV] --> B[Python ETL<br/>load_raw_data.py]
+    A[Data Source<br/>Olist E-commerce CSV Files] --> B[Python ETL<br/>load_raw_data.py]
 
-B --> C[PostgreSQL<br/>Raw Tables]
+    B --> C[PostgreSQL<br/>Raw Data Layer]
 
-C --> D[Great Expectations<br/>Data Validation]
+    C --> D[Great Expectations<br/>Data Quality Validation]
 
-C --> E[dbt Warehouse<br/>Staging + Marts]
+    C --> E[dbt Warehouse<br/>Staging Models + Analytics Marts]
 
-E --> F[Power BI Dashboard]
+    E --> F[Power BI Dashboard<br/>Business Analytics]
 
-E --> G[ML Pipeline<br/>Churn Prediction]
+    E --> G[ML Pipeline<br/>Customer Churn Prediction]
 
-G --> H[FastAPI<br/>Prediction API]
-
+    G --> H[FastAPI<br/>ML Prediction API]
+```
 ## Tech Stack
 
 ### Data Engineering
