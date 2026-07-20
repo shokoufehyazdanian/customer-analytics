@@ -50,7 +50,8 @@ flowchart LR
 
     H --> J[FastAPI<br/>Churn Prediction API]
 
-    K[Airflow Scheduler<br/>Workflow Orchestration] --> B
+    [Airflow Scheduler<br/>Workflow Orchestration] --> B
+    K --> C
     K --> D
     K --> E
     K --> H
@@ -110,8 +111,7 @@ customer-analytics-platform/
 │
 ├── data_loader
 │   ├── Dockerfile
-│   ├── requirements.txt
-│   └── load_data.py
+│   └── load_raw_data.py
 │
 ├── src
 │   └── data ingestion
@@ -244,10 +244,9 @@ No local Python environment is required because all services run inside Docker c
 ## 1. Clone Repository
 
 ```bash
-git clone github.com/shokoufehyazdanian/Customer-Analytics-Platform.git
+git clone https://github.com/shokoufehyazdanian/Customer-Analytics-Platform.git
 ```
 
----
 
 ## 2. Dataset Setup
 
