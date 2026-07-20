@@ -386,6 +386,13 @@ Example request:
   "monetary": 450
 }
 ```
+Response: 
+```json
+{
+  "churn_prediction": 0,
+  "probability": 0.87
+}
+```
 
 ## 7. Stop Services
 
