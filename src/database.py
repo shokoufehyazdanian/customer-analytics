@@ -15,11 +15,10 @@ def get_engine():
     password = os.getenv("POSTGRES_PASSWORD")
 
     connection_string = (
-    f"postgresql://{user}:{password}"
-    f"@{host}:{port}/{database}"
-)
+        f"postgresql://{user}:{password}"
+        f"@{host}:{port}/{database}"
+    )
 
     engine = create_engine(connection_string)
-    print(os.getenv("POSTGRES_PASSWORD"))
 
     return engine
