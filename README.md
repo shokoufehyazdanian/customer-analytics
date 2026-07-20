@@ -1,4 +1,8 @@
 # Customer Analytics Platform
+![Docker](https://img.shields.io/badge/Docker-enabled-blue)
+![Python](https://img.shields.io/badge/Python-3.12-yellow)
+![dbt](https://img.shields.io/badge/dbt-analytics-orange)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
 
 End-to-End Data Analytics & Machine Learning Platform
 
@@ -143,7 +147,12 @@ data/raw/
 ├── olist_orders_dataset.csv
 ├── olist_order_items_dataset.csv
 ├── olist_products_dataset.csv
-└── olist_order_reviews_dataset.csv
+├── olist_order_reviews_dataset.csv
+├── olist_customers_dataset.csv
+├── olist_sellers_dataset.csv
+├── olist_geolocation_dataset.csv
+├── olist_order_payments_dataset.csv
+└── product_category_name_translation.csv
 ```
 The data_loader container automatically imports these files into PostgreSQL.
 
@@ -371,8 +380,7 @@ http://localhost:8000/docs
 
 Endpoint:
 
-POST /predict
-
+POST http://localhost:8000/predict
 
 Example request:
 
