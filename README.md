@@ -232,10 +232,8 @@ No local Python environment is required because all services run inside Docker c
 ## 1. Clone Repository
 
 ```bash
-git clone github.com/shokoufehyazdanian/Customer-Analytics-Platform.git
+git clone https://github.com/shokoufehyazdanian/Customer-Analytics-Platform.git
 ```
-
----
 
 ## 2. Dataset Setup
 
