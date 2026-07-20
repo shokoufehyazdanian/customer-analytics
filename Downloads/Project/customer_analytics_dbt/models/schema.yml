@@ -1,0 +1,94 @@
+version: 2
+sources:
+  - name: ecommerce
+    schema: public
+    tables:
+      - name: olist_order_reviews_dataset
+
+      
+models:
+    
+    
+  - name: mart_product_performance
+
+    columns:
+
+      - name: product_id
+        tests:
+          - not_null
+
+      - name: total_revenue
+        tests:
+          - not_null
+
+  - name: stg_orders
+    description: "Cleaned orders staging model"
+
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        tests:
+          - not_null
+
+
+  - name: stg_customers
+    description: "Cleaned customers staging model"
+
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+
+  - name: stg_products
+    description: "Cleaned products staging model"
+
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+
+
+  - name: fact_orders
+
+
+    description: "Orders fact table"
+
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+
+          
+  - name: stg_reviews
+
+  - name: mart_sales_summary
+    description: Sales KPIs
+
+  - name: mart_customer_rfm
+
+  
+  
+  - name: mart_daily_sales
+    description: "Daily sales summary including orders and revenue"
+
+    columns:
+      - name: sales_date
+        description: "Date of sales"
+
+      - name: orders
+        description: "Number of orders per day"
+        tests:
+          - not_null
+
+      - name: revenue
+        description: "Total revenue per day"
+        tests:
+         - not_null

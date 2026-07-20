@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+data/raw/*
+!data/raw/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+# OS
+.DS_Store
+
+# dbt generated files
+customer_analytics_dbt/target/
+customer_analytics_dbt/logs/
+customer_analytics_dbt/dbt_packages/
+
+# dbt local profile
+customer_analytics_dbt/profiles.yml
+
+# Logs
+logs/
+airflow/logs/
+
+# MLflow
+mlruns/
+mlflow.db
+
+# Large model files
+*.pkl
+*.skops
+
+# Python cache
+__pycache__/
+.pytest_cache/
